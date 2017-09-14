@@ -42,13 +42,13 @@ for:
 
   after_build:
     - ps: New-Item "C:\projects\ci-test\build\Release\${env:PLATFORM}" -itemType Directory
-    - ps: Move-Item -Path "C:\projects\ci-test\build\Release\libci_test.a" -Destination "C:\projects\ci-test\build\Release\${env:PLATFORM}\libci_test.a"
+    - ps: Move-Item -Path "C:\projects\ci-test\build\Release\ci_test.lib" -Destination "C:\projects\ci-test\build\Release\ci_test_${env:PLATFORM}.lib"
 
   deploy:
     provider: GitHub
     auth_token:
       secure: QNHojv/OaB1ofpE6H1YgTcmqqfyiJBt3+XX7ABZSN9dk1RluUXptNJy2GMGLuxLo
-    artifact: build\Release\$(platform)\libci_test.a
+    artifact: build\Release\ci_test_$(platform).lib
     draft: false
     prereelase: false
     on:
