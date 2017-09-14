@@ -41,14 +41,14 @@ for:
     - ps: cmake --build . --target ci_test --config ${env:CONFIGURATION}
 
   after_build:
-    - ps: New-Item "C:\projects\ci-test\build\Release\${env:PLATFORM}" -itemType Directory
-    - ps: Move-Item -Path "C:\projects\ci-test\build\Release\ci_test.lib" -Destination "C:\projects\ci-test\build\Release\ci_test_${env:PLATFORM}.lib"
+    - ps: Move-Item -Path "C:\projects\ci-test\build\${env:CONFIGURATION}\ci_test.lib" -Destination "C:\projects\ci-test\build\${env:CONFIGURATION}\ci_test_${env:PLATFORM}.lib"
+    - ps: ls "C:\projects\ci-test\build\${env:CONFIGURATION}"
 
   deploy:
     provider: GitHub
     auth_token:
       secure: QNHojv/OaB1ofpE6H1YgTcmqqfyiJBt3+XX7ABZSN9dk1RluUXptNJy2GMGLuxLo
-    artifact: build\Release\ci_test_$(platform).lib
+    artifact: build\$(configuration)\ci_test_$(platform).lib
     draft: false
     prereelase: false
     on:
