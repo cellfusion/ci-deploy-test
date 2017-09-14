@@ -46,7 +46,7 @@ for:
   deploy:
     provider: GitHub
     auth_token:
-      secure:
+      secure: QNHojv/OaB1ofpE6H1YgTcmqqfyiJBt3+XX7ABZSN9dk1RluUXptNJy2GMGLuxLo
     artifact: "C:\projects\ci-test\build\${env:PLATFORM}\libci_test.a"
     draft: false
     prereelase: false
