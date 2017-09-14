@@ -44,11 +44,13 @@ for:
     - ps: Move-Item -Path "C:\projects\ci-test\build\${env:CONFIGURATION}\ci_test.lib" -Destination "C:\projects\ci-test\build\${env:CONFIGURATION}\ci_test_${env:PLATFORM}.lib"
     - ps: ls "C:\projects\ci-test\build\${env:CONFIGURATION}"
 
+  artifacts:
+    - path: build\$(configuration)\ci_test_$(platform).lib
+
   deploy:
     provider: GitHub
     auth_token:
       secure: QNHojv/OaB1ofpE6H1YgTcmqqfyiJBt3+XX7ABZSN9dk1RluUXptNJy2GMGLuxLo
-    artifact: build\$(configuration)\ci_test_$(platform).lib
     draft: false
     prereelase: false
     on:
