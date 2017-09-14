@@ -24,4 +24,4 @@ deployment:
     tag: /v[0-9]\.([0-9]+)\.([0-9]+)/
     commands:
       - go get github.com/aktau/github-release
-      - github-release upload -s $GITHUB_TOKEN -u $CIRCLE_PROJECT_USERNAME -r $CIRCLE_PROJECT_REPONAME -t $CIRCLE_TAG -f build/libci_test.a
+      - github-release upload -s $GITHUB_TOKEN -u $CIRCLE_PROJECT_USERNAME -r $CIRCLE_PROJECT_REPONAME -t $CIRCLE_TAG -f build/libci_test.a -n "linux_lib"
