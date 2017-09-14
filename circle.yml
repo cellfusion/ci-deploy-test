@@ -1,0 +1,27 @@
+machine:
+  timezone: Asia/Tokyo
+
+dependencies:
+  pre:
+    - sudo apt-get install software-properties-common
+    - sudo add-apt-repository ppa:george-edison55/cmake-3.x -y
+    - sudo apt-get update
+    - sudo apt-get install cmake
+
+compile:
+  pre:
+    - mkdir build; cd build; cmake .. -DVERSION=$CIRCLE_TAG
+  override:
+    - cd build; cmake --build . --target ci_test --config Release
+
+general:
+  artifacts:
+    - build/libci_test.a
+
+deployment:
+  release:
+    branch: release
+    tag: /v[0-9]\.([0-9]+)\.([0-9]+)/
+    commands:
+      - go get github.com/aktau/github-release
+      - github-release upload --user $CIRCLE_PROJECT_USERNAME --repo $CIRCLE_PROJECT_REPONAME --tag $CIRCLE_TAG --file build/libci_test.a
