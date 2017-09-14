@@ -53,4 +53,4 @@ for:
     prereelase: false
     on:
       branch: release
-      appveyor_repo_tag: false
+      appveyor_repo_tag: true
