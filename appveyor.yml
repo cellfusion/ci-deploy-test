@@ -1,5 +1,5 @@
 
-version: {build}
+version: "{build}"
 pull_requests:
   do_not_increment_build_number: true
 skip_tags: true
@@ -47,7 +47,7 @@ for:
     provider: GitHub
     auth_token:
       secure: QNHojv/OaB1ofpE6H1YgTcmqqfyiJBt3+XX7ABZSN9dk1RluUXptNJy2GMGLuxLo
-    artifact: "C:\projects\ci-test\build\${env:PLATFORM}\libci_test.a"
+    artifact: C:\projects\ci-test\build\${env:PLATFORM}\libci_test.a
     draft: false
     prereelase: false
     on:
