@@ -1,4 +1,5 @@
 #include "library.h"
+#include "config.h"
 
 #include <iostream>
 

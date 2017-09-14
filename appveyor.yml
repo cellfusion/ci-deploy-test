@@ -20,7 +20,7 @@ install:
   - ps: cd build
   - ps: $env:CMAKE_GENERATOR_NAME="Visual Studio 14 2015"
   - ps: If("${env:PLATFORM}" -eq "x64") { $env:CMAKE_GENERATOR_NAME="${env:CMAKE_GENERATOR_NAME} Win64" }
-  - ps: cmake .. -G "${env:CMAKE_GENERATOR_NAME}"
+  - ps: cmake .. -G "${env:CMAKE_GENERATOR_NAME}" -DVERSION=${env:APPVEYOR_REPO_TAG_NAME}
 
 platform:
   - Win32
@@ -37,12 +37,11 @@ for:
   skip_tags: false
 
   build_script:
-    - ps: cd C:\projects\ci-test\build
+    - ps: cd build
     - ps: cmake --build . --target ci_test --config ${env:CONFIGURATION}
 
   after_build:
-    - ps: Move-Item -Path "C:\projects\ci-test\build\${env:CONFIGURATION}\ci_test.lib" -Destination "C:\projects\ci-test\build\${env:CONFIGURATION}\ci_test_${env:PLATFORM}.lib"
-    - ps: ls "C:\projects\ci-test\build\${env:CONFIGURATION}"
+    - ps: Move-Item -Path "${env:APPVEYOR_BUILD_FOLDER}\build\${env:CONFIGURATION}\ci_test.lib" -Destination "${env:APPVEYOR_BUILD_FOLDER}\build\${env:CONFIGURATION}\ci_test_${env:PLATFORM}.lib"
 
   artifacts:
     - path: build\$(configuration)\ci_test_$(platform).lib
