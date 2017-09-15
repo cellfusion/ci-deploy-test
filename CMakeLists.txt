@@ -12,6 +12,7 @@ set(LIBS_LIB_DIR ${LIBS_DIR}/lib)
 if($VERSION MATCHES "")
     execute_process(COMMAND git rev-parse --short HEAD OUTPUT_VARIABLE VERSION OUTPUT_STRIP_TRAILING_WHITESPACE)
 endif()
+message(STATUS "VERSION:${VERSION}")
 configure_file(${CMAKE_SOURCE_DIR}/config.h.in ${SRC_DIR}/config.h)
 
 # build
