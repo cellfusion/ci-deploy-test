@@ -37,7 +37,6 @@ for:
   skip_tags: false
 
   build_script:
-    - ps: cd build
     - ps: cmake --build . --target ci_test --config ${env:CONFIGURATION}
 
   after_build:
