@@ -1,7 +1,5 @@
 machine:
   timezone: Asia/Tokyo
-  enviroment:
-    GIT_TAG: `git name-rev --tags --name-only HEAD`
 
 dependencies:
   pre:
@@ -12,8 +10,7 @@ dependencies:
 
 compile:
   pre:
-    - export -p
-    - mkdir build; cd build; cmake .. -DVERSION=$GIT_TAG
+    - GIT_TAG=`git name-rev --tags --name-only HEAD`; mkdir build; cd build; cmake .. -DVERSION=$GIT_TAG
   override:
     - cd build; cmake --build . --target ci_test --config Release
 
@@ -27,11 +24,11 @@ deployment:
     tag: /v[0-9]\.([0-9]+)\.([0-9]+)/
     commands:
       - go get github.com/aktau/github-release
-      - github-release release \
+      - GIT_TAG=`git name-rev --tags --name-only HEAD`; github-release release \
         --user "$CIRCLE_PROJECT_USERNAME" \
         --repo "$CIRCLE_PROJECT_REPONAME" \
         --tag "$GIT_TAG"
-      - github-release upload \
+      - GIT_TAG=`git name-rev --tags --name-only HEAD`; github-release upload \
         --user "$CIRCLE_PROJECT_USERNAME" \
         --repo "$CIRCLE_PROJECT_REPONAME" \
         --tag "$GIT_TAG" \
