@@ -20,7 +20,7 @@ install:
   - ps: cd build
   - ps: $env:CMAKE_GENERATOR_NAME="Visual Studio 14 2015"
   - ps: If("${env:PLATFORM}" -eq "x64") { $env:CMAKE_GENERATOR_NAME="${env:CMAKE_GENERATOR_NAME} Win64" }
-  - ps: cmake .. -G "${env:CMAKE_GENERATOR_NAME}" -DVERSION=${env:APPVEYOR_REPO_TAG_NAME}
+  - ps: cmake .. -G "${env:CMAKE_GENERATOR_NAME}" -DVERSION="${env:APPVEYOR_REPO_TAG_NAME}"
 
 platform:
   - Win32
