@@ -24,6 +24,7 @@ deployment:
     branch: release
     tag: /v[0-9]\.([0-9]+)\.([0-9]+)/
     commands:
+      - GIT_TAG=`git name-rev --tags --name-only HEAD`;
       - go get github.com/aktau/github-release
       - github-release release \
         --user "$CIRCLE_PROJECT_USERNAME" \
