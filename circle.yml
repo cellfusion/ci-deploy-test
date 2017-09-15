@@ -10,9 +10,8 @@ dependencies:
 
 compile:
   pre:
-    - git name-rev --tags --name-only HEAD
-    - GIT_TAG=`git name-rev --tags --name-only HEAD`; export GIT_TAG
-    - echo $GIT_TAG
+    - export GIT_TAG=`git name-rev --tags --name-only HEAD`
+    - export -p
     - mkdir build; cd build; cmake .. -DVERSION=$GIT_TAG
   override:
     - cd build; cmake --build . --target ci_test --config Release
