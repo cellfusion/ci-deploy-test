@@ -1,5 +1,7 @@
 machine:
   timezone: Asia/Tokyo
+  enviroment:
+    GIT_TAG: `git name-rev --tags --name-only HEAD`
 
 dependencies:
   pre:
@@ -10,7 +12,6 @@ dependencies:
 
 compile:
   pre:
-    - export GIT_TAG=`git name-rev --tags --name-only HEAD`
     - export -p
     - mkdir build; cd build; cmake .. -DVERSION=$GIT_TAG
   override:
