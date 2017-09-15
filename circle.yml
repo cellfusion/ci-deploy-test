@@ -10,7 +10,7 @@ dependencies:
 
 compile:
   pre:
-    - GIT_TAG=`git name-rev --tags --name-only HEAD`; mkdir build; cd build; cmake .. -DVERSION="$GIT_TAG"
+    - mkdir build; cd build; cmake .. -DVERSION="$CIRCLE_TAG"
   override:
     - cd build; cmake --build . --target ci_test --config Release
 
@@ -23,6 +23,6 @@ deployment:
     tag: /v[0-9]\.([0-9]+)\.([0-9]+)/
     commands:
       - go get github.com/aktau/github-release
-      - GIT_TAG=`git name-rev --tags --name-only HEAD`; github-release release --user "$CIRCLE_PROJECT_USERNAME" --repo "$CIRCLE_PROJECT_REPONAME" --tag "$GIT_TAG"
-      - GIT_TAG=`git name-rev --tags --name-only HEAD`; github-release upload --user "$CIRCLE_PROJECT_USERNAME" --repo "$CIRCLE_PROJECT_REPONAME" --tag "$GIT_TAG" --name "linux_lib" --file "build/libci_test.a"
+      - github-release release --user "$CIRCLE_PROJECT_USERNAME" --repo "$CIRCLE_PROJECT_REPONAME" --tag "$CIRCLE_TAG"
+      - github-release upload --user "$CIRCLE_PROJECT_USERNAME" --repo "$CIRCLE_PROJECT_REPONAME" --tag "$CIRCLE_TAG" --name "linux_lib" --file "build/libci_test.a"
 
