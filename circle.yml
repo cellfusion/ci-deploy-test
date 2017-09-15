@@ -10,7 +10,8 @@ dependencies:
 
 compile:
   pre:
-    - mkdir build; cd build; cmake .. -DVERSION=$CIRCLE_TAG
+    - GIT_TAG=`git name-rev --tags --name-only HEAD`;
+    - mkdir build; cd build; cmake .. -DVERSION=$GIT_TAG
   override:
     - cd build; cmake --build . --target ci_test --config Release
 
@@ -27,12 +28,11 @@ deployment:
       - github-release release \
         --user "$CIRCLE_PROJECT_USERNAME" \
         --repo "$CIRCLE_PROJECT_REPONAME" \
-        --tag "$CIRCLE_TAG" \
-        --name "$CIRCLE_TAG"
+        --tag "$GIT_TAG"
       - github-release upload \
         --user "$CIRCLE_PROJECT_USERNAME" \
         --repo "$CIRCLE_PROJECT_REPONAME" \
-        --tag "$CIRCLE_TAG" \
+        --tag "$GIT_TAG" \
         --name "linux_lib" \
         --file "build/libci_test.a"
 
