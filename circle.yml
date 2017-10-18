@@ -20,8 +20,8 @@ general:
 
 deployment:
   release:
-    branch: /release-?.*/
+    branch: /release-.*/
     commands:
       - go get github.com/aktau/github-release
-      - github-release upload --user "$CIRCLE_PROJECT_USERNAME" --repo "$CIRCLE_PROJECT_REPONAME" --tag "$CIRCLE_TAG" --name "libci_test.a" --file "build/libci_test.a"
+      - github-release upload --user "$CIRCLE_PROJECT_USERNAME" --repo "$CIRCLE_PROJECT_REPONAME" --tag `echo "v$CIRCLE_BRANCH" | tr -d release-` --name "libci_test.a" --file "build/libci_test.a"
 
