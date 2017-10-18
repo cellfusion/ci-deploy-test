@@ -35,6 +35,8 @@ for:
     only:
       - /release-.*/
 
+  skip_non_tags: false
+
   build_script:
     - ps: cmake --build . --target ci_test --config ${env:CONFIGURATION}
 
