@@ -1,0 +1,6 @@
+#ifndef CI_TEST_CONFIG_H
+#define CI_TEST_CONFIG_H
+
+#cmakedefine VERSION "@VERSION@"
+
+#endif

@@ -20,7 +20,7 @@ install:
   - ps: cd build
   - ps: $env:CMAKE_GENERATOR_NAME="Visual Studio 14 2015"
   - ps: If("${env:PLATFORM}" -eq "x64") { $env:CMAKE_GENERATOR_NAME="${env:CMAKE_GENERATOR_NAME} Win64" }
-  - ps: cmake .. -G "${env:CMAKE_GENERATOR_NAME}"
+  - ps: cmake .. -G "${env:CMAKE_GENERATOR_NAME}" -DVERSION="${env:APPVEYOR_REPO_TAG_NAME}"
 
 platform:
   - Win32
@@ -37,20 +37,20 @@ for:
   skip_tags: false
 
   build_script:
-    - ps: cd C:\projects\ci-test\build
     - ps: cmake --build . --target ci_test --config ${env:CONFIGURATION}
 
   after_build:
-    - ps: New-Item "C:\projects\ci-test\build\Release\${env:PLATFORM}" -itemType Directory
-    - ps: Move-Item -Path "C:\projects\ci-test\build\Release\libci_test.a" -Destination "C:\projects\ci-test\build\Release\${env:PLATFORM}\libci_test.a"
+    - ps: Move-Item -Path "${env:APPVEYOR_BUILD_FOLDER}\build\${env:CONFIGURATION}\ci_test.lib" -Destination "${env:APPVEYOR_BUILD_FOLDER}\build\${env:CONFIGURATION}\ci_test_${env:PLATFORM}.lib"
+
+  artifacts:
+    - path: build\$(configuration)\ci_test_$(platform).lib
 
   deploy:
     provider: GitHub
     auth_token:
       secure: QNHojv/OaB1ofpE6H1YgTcmqqfyiJBt3+XX7ABZSN9dk1RluUXptNJy2GMGLuxLo
-    artifact: build\Release\$(platform)\libci_test.a
     draft: false
     prereelase: false
     on:
       branch: release
-      appveyor_repo_tag: false
+      appveyor_repo_tag: true
