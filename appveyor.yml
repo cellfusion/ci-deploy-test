@@ -42,6 +42,7 @@ for:
 
   after_build:
     - ps: Move-Item -Path "${env:APPVEYOR_BUILD_FOLDER}\build\${env:CONFIGURATION}\ci_test.lib" -Destination "${env:APPVEYOR_BUILD_FOLDER}\build\${env:CONFIGURATION}\ci_test_${env:PLATFORM}.lib"
+    - ps: $env:RELEASE_VERSION="${env:APPVEYOR_REPO_BRANCH}" -creplace "release-", ""
 
   artifacts:
     - path: build\$(configuration)\ci_test_$(platform).lib
@@ -52,3 +53,5 @@ for:
       secure: QNHojv/OaB1ofpE6H1YgTcmqqfyiJBt3+XX7ABZSN9dk1RluUXptNJy2GMGLuxLo
     draft: false
     prereelase: false
+    release: version${env:RELEASE_VERSION}
+    tag: v${env:RELEASE_VERSION}
