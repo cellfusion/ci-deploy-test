@@ -53,5 +53,5 @@ for:
       secure: QNHojv/OaB1ofpE6H1YgTcmqqfyiJBt3+XX7ABZSN9dk1RluUXptNJy2GMGLuxLo
     draft: false
     prereelase: false
-    release: version${env:RELEASE_VERSION}
-    tag: v${env:RELEASE_VERSION}
+    release: version$(RELEASE_VERSION)
+    tag: v$(RELEASE_VERSION)
