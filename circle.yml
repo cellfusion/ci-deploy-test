@@ -22,7 +22,6 @@ deployment:
   release:
     branch: /release-.*/
     commands:
+      - chmod +x ./circleci_deploy.sh
       - ./circleci_deploy.sh
-      - go get github.com/aktau/github-release
-      - github-release upload --user "$CIRCLE_PROJECT_USERNAME" --repo "$CIRCLE_PROJECT_REPONAME" --tag `echo "v$CIRCLE_BRANCH" | tr -d release-` --name "libci_test.a" --file "build/libci_test.a"
 
